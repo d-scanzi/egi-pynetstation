@@ -276,7 +276,7 @@ class NetStation(object):
         else:
             t_start = type(start)
             return TypeError(
-                f'Start is type {t_start}, should be str "now" or float'
+                'Start is type {}, should be str "now" or float'.format(t_start)
             )
         data = package_event(
             start, duration, event_type, label, desc, data

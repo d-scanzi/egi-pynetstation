@@ -233,44 +233,44 @@ def package_event(
 
     if not (isinstance(start, float) or isinstance(start, int)):
         raise TypeError(
-            f'Event start should be number or str, is {type_start}'
+            'Event start should be number or str, is {}'.format(type_start)
         )
     if not start >= 0:
-        raise TypeError(f'Event start should be >= 0, is {start}')
+        raise TypeError('Event start should be >= 0, is {}'.format(start))
     if not (isinstance(duration, float) or isinstance(duration, int)):
         raise TypeError(
-            f'Event duration should be number, is {type_duration}'
+            'Event duration should be number, is {}'.format(type_duration)
         )
     if not (duration >= 0.001):
         raise TypeError(
-            f'Event duration should be at least 0.001, is {duration}'
+            'Event duration should be at least 0.001, is {}'.format(duration)
         )
     if not isinstance(event_type, str):
-        raise TypeError(f'Event type should be str, is {type_etype}')
+        raise TypeError('Event type should be str, is {}').format(type_etype)
     len_etype = len(event_type)
     if not len(event_type) == 4:
         raise TypeError(
-            f'Event type should have 4 characters, has {len_etype}'
+            'Event type should have 4 characters, has {}'.format(len_etype)
         )
     if not isinstance(label, str):
-        raise TypeError(f'Event label should be str, is {type_label}')
+        raise TypeError('Event label should be str, is {}'.format(type_label))
     len_label = len(label)
     if not len_label <= 256:
         raise TypeError(
-            f'Event label should be <= 256 characters, is {len_label}'
+            'Event label should be <= 256 characters, is {}'.format(len_label)
         )
     if not isinstance(desc, str):
         raise TypeError(
-            f'Event description should be str, is {type_desc}'
+            'Event description should be str, is {}'.format(type_desc)
         )
     len_desc = len(desc)
     if not len_desc <= 256:
         raise TypeError(
             'Event description should be <= 256 characters, is' +
-            f'{len_desc}'
+            '{}'.format(len_desc)
         )
     if not isinstance(data, dict):
-        raise TypeError(f'Event data should be dict, is {type_data}')
+        raise TypeError(f'Event data should be dict, is {}').format(type_data)
 
     # Begin creating the data block
     nkeys = len(data.keys())
@@ -299,13 +299,13 @@ def package_event(
         if not isinstance(key, str):
             type_key = type(key)
             raise TypeError(
-                f'Event data keys should be str, but {key} is {type_key}'
+                'Event data keys should be str, but {key} is {}'.format(type_key)
             )
         elif len(key) != 4:
             len_key = len(key)
             raise TypeError(
                 'Event data keys should have 4 characters;'
-                f' {key} has {len_key}'
+                ' {key} has {}'.format(len_key)
             )
 
         # Check the value's validity
@@ -329,7 +329,7 @@ def package_event(
             type_value = type(value)
             raise TypeError(
                 'Event data values should be str, bool, or numeric; is' +
-                f'{type_value}'
+                '{}'.format(type_value)
             )
 
         # Build the key's block
