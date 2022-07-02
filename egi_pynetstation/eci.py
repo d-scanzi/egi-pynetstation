@@ -43,7 +43,8 @@ INT_VAL_S = 83
 MPS = 1000
 
 
-def build_command(cmd: str, data: object = None) -> bytes:
+def build_command(cmd, data= None):
+    # type: (str, object) -> bytes
     """
     Builds a byte array for ECI from the provided string and data
 
@@ -109,7 +110,8 @@ def build_command(cmd: str, data: object = None) -> bytes:
     return tx
 
 
-def parse_response(bytearr: bytes) -> Union[bool, float, int]:
+def parse_response(bytearr):
+    # type: (bytes) -> Union[bool, float, int]
     """Parses ECI response
 
     Parameters
@@ -201,12 +203,12 @@ def parse_response(bytearr: bytes) -> Union[bool, float, int]:
 
 
 def package_event(
-    start: float,
-    duration: float,
-    event_type: str,
-    label: str,
-    desc: str,
-    data: dict,
+    start,      # type: float
+    duration,   # type: float
+    event_type, # type: str
+    label,      # type: str
+    desc,       # type:str
+    data        # type: dict
 ):
     """Takes event information and creates appropriate byte string
 

@@ -12,7 +12,8 @@ class Socket():
     buffersize = 4096
     timeout = 1
 
-    def __init__(self, address: str, port: int) -> None:
+    def __init__(self, address, port):
+        # type: (str, int) -> None
         """
         Construct Socket object; does not connect.
 
@@ -26,7 +27,7 @@ class Socket():
         self._address = (address, port)
         self._socket = None
 
-    def connect(self) -> None:
+    def connect(self): # type: None
         """
         Connect to the TCP/IP socket
 
@@ -38,7 +39,7 @@ class Socket():
         self._socket.connect(self._address)
         self._socket.settimeout(Socket.timeout)
 
-    def disconnect(self) -> None:
+    def disconnect(self): # type: None
         """
         Disconnect from the socket
         """
@@ -46,7 +47,7 @@ class Socket():
             self._socket.close()
             self._socket = None
 
-    def write(self, data: bytes) -> None:
+    def write(self, data): # type: (bytes) -> None
         """
         Write to the socket
 
@@ -69,7 +70,7 @@ class Socket():
                 length_transmitted, length_data
             )
 
-    def read(self) -> bytes:
+    def read(self): # type: bytes
         """
         Read data from amp. BLOCKS ON READING
 

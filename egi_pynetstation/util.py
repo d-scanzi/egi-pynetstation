@@ -16,7 +16,8 @@ ntp_epoch = datetime(1900, 1, 1, tzinfo=timezone.utc)
 unix_epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
 
 
-def sys_to_bytes(number: int, size: int, signed: bool = False) -> bytes:
+def sys_to_bytes(number, size, signed = False):
+    # type: (int, int, bool) -> bytes
     """Simplified to_bytes that always uses sys.byteorder
 
     Parameters
@@ -32,7 +33,8 @@ def sys_to_bytes(number: int, size: int, signed: bool = False) -> bytes:
     return int(number).to_bytes(size, sys.byteorder, signed=signed)
 
 
-def sys_from_bytes(bytearr: bytes, signed: bool = False) -> int:
+def sys_from_bytes(bytearr, signed = False):
+    # type: (bytes, bool) -> int
     """Simplified from_bytes that always uses sys.byteorder
 
     Parameters
@@ -52,7 +54,8 @@ def sys_from_bytes(bytearr: bytes, signed: bool = False) -> int:
     return int.from_bytes(bytearr, sys.byteorder, signed=signed)
 
 
-def get_ntp_byte(number: Union[float, int, bytes]) -> bytes:
+def get_ntp_byte(number):
+    # type: (Union[float, int, bytes]) -> bytes
     """Converts numbers or bytes into an NTP format.
 
     Parameters
@@ -95,7 +98,8 @@ def get_ntp_byte(number: Union[float, int, bytes]) -> bytes:
     return pack('II', second_portion, subsecond_portion)
 
 
-def get_ntp_float(bytearr: bytes) -> float:
+def get_ntp_float(bytearr):
+    # type: (bytes) -> float
     """Converts an NTP byte array into the number of seconds in NTP epoch
 
     Parameters
@@ -131,7 +135,8 @@ def get_ntp_float(bytearr: bytes) -> float:
         raise NTPInvalidType(bytearr)
 
 
-def format_time(time: float) -> str:
+def format_time(time):
+    # type: (float) -> str
     """Format the float time in a human readable format
 
     Parameter

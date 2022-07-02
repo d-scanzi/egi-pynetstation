@@ -64,7 +64,8 @@ class NetStation(object):
     we can add that to the documentation!
     """
     # TODO: implement simple clock using _mstime
-    def __init__(self, ipv4: str, port: int, endian: str = 'NTEL') -> None:
+    def __init__(self, ipv4, port, endian = 'NTEL'):
+        # type: (str, int, str) -> None
         """Constructor for NetStation
 
         Parameters
@@ -86,7 +87,7 @@ class NetStation(object):
         self._mstime = None
         self._recording_start = None
 
-    def check_connected(func) -> None:
+    def check_connected(func): # type: None
         """Decorator to raise exception if not connected
 
         Parameters
@@ -105,7 +106,8 @@ class NetStation(object):
                 raise NetStationUnconnected()
         return wrapper
 
-    def connect(self, clock: str = 'ntp', ntp_ip: str = None) -> None:
+    def connect(self, clock = 'ntp', ntp_ip = None):
+        # type: (str, str) -> None
         """Connect to the Netstation machine via TCP/IP
 
         Parameters
@@ -185,14 +187,14 @@ class NetStation(object):
         # print(f'Response is {response} (or {format_time(response)}')
 
     @check_connected
-    def disconnect(self) -> None:
+    def disconnect(self): # type: None
         """Close the TCP/IP connection."""
         self._command('Exit')
         self._socket.disconnect()
         self._connected = False
 
     @check_connected
-    def begin_rec(self) -> None:
+    def begin_rec(self): # type: None
         """Begin Recording; also performs NTP sync"""
         if self._ntp_ip:
             self.ntpsync()
@@ -206,7 +208,7 @@ class NetStation(object):
         self._command('BeginRecording')
 
     @check_connected
-    def end_rec(self) -> None:
+    def end_rec(self): # type: None
         """End Recording"""
         self._command('EndRecording')
         self._recording_start = None
@@ -215,12 +217,12 @@ class NetStation(object):
     def send_event(
         self,
         start='now',
-        duration: float = 0.001,
-        event_type: str = ' ' * 4,
-        label: str = ' ' * 4,
-        desc: str = ' ' * 4,
-        data: dict = {},
-    ) -> None:
+        duration = 0.001,     # type: float
+        event_type = ' ' * 4, # type: str
+        label = ' ' * 4,      # type: str
+        desc = ' ' * 4,       # type: str
+        data = {}             # type: dict
+    ):
         """Send event to amplifier
 
         Parameters
@@ -281,7 +283,7 @@ class NetStation(object):
         )
         self._command('EventData', data)
 
-    def rec_start(self) -> float:
+    def rec_start(self): # type: float
         """Get recording start time from time.time()
 
         Returns
@@ -290,7 +292,7 @@ class NetStation(object):
         """
         return self._recording_start
 
-    def since_start(self) -> float:
+    def since_start(self): # type: float:
         """DO NOT USE; Get difference in time since recording start
 
         Returns
@@ -302,7 +304,8 @@ class NetStation(object):
         else:
             return None
 
-    def _command(self, cmd: str, data=None) -> Union[bool, float, int]:
+    def _command(self, cmd, data=None):
+        # type: (str) -> Union[bool, float, int]
         """Send a command to the amplifier; please do not use as this is
         internal.
 
