@@ -286,9 +286,9 @@ def package_event(
     block = (
         pack('i', start_millis) +
         pack('I', duration_millis) +
-        bytes(event_type, 'ascii') +
-        pack('B', len_label) + bytes(label, 'ascii') +
-        pack('B', len_desc) + bytes(desc, 'ascii') +
+        bytes(event_type) +
+        pack('B', len_label) + bytes(label) +
+        pack('B', len_desc) + bytes(desc) +
         pack('B', nkeys)
     )
 
@@ -299,7 +299,7 @@ def package_event(
         if not isinstance(key, str):
             type_key = type(key)
             raise TypeError(
-                'Event data keys should be str, but {key} is {type_key}'.format(key=key, type_key=type_key)
+                'Event data keys should be str, but {key} is {type_key}'.format(key=key,type_key=type_key)
             )
         elif len(key) != 4:
             len_key = len(key)
