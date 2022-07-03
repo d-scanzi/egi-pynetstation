@@ -8,12 +8,13 @@ from math import modf
 from typing import Union
 from struct import pack
 from time import strftime, localtime
-from datetime import datetime, timezone
+from datetime import datetime
+import pytz # Instead of datetime.timezone (introduced in python 3.2)
 from .exceptions import *
 
 ntp_res = 2**-32
-ntp_epoch = datetime(1900, 1, 1, tzinfo=timezone.utc)
-unix_epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
+ntp_epoch = datetime(1900, 1, 1, tzinfo=pytz.utc)
+unix_epoch = datetime(1970, 1, 1, tzinfo=pytz.utc)
 
 
 def sys_to_bytes(number, size, signed = False):
@@ -49,7 +50,7 @@ def sys_from_bytes(bytearr, signed = False):
     if not isinstance(bytearr, bytes):
         t_bytearr = type(bytearr)
         raise TypeError(
-            f'bytearr is type {t_bytearr}, should bytes'
+            'bytearr is type {}, should bytes'.format(t_bytearr)
         )
     return int.from_bytes(bytearr, sys.byteorder, signed=signed)
 

@@ -270,7 +270,7 @@ def package_event(
             '{}'.format(len_desc)
         )
     if not isinstance(data, dict):
-        raise TypeError(f'Event data should be dict, is {}').format(type_data)
+        raise TypeError('Event data should be dict, is {}'.format(type_data))
 
     # Begin creating the data block
     nkeys = len(data.keys())
@@ -299,13 +299,13 @@ def package_event(
         if not isinstance(key, str):
             type_key = type(key)
             raise TypeError(
-                'Event data keys should be str, but {key} is {}'.format(type_key)
+                'Event data keys should be str, but {key} is {type_key}'.format(key=key, type_key=type_key)
             )
         elif len(key) != 4:
             len_key = len(key)
             raise TypeError(
                 'Event data keys should have 4 characters;'
-                ' {key} has {}'.format(len_key)
+                ' {key} has {len_key}'.format(key=key ,len_key=len_key)
             )
 
         # Check the value's validity
