@@ -324,7 +324,10 @@ def package_event(
         elif isinstance(value, str):
             ktype = 'TEXT'
             klen = len(value)
-            kdata = bytes(value, 'ascii')
+            # From .NetStation module: The event data to send; see Notes for more information.
+            # This must be a shallow dictionary. However, it is an empty dict by default and it's easier to pass a 
+            # str in event_type with the trigger name. Thus, this for loop most likely won't run <Daniele Scanzi>
+            kdata = bytes(value) 
         else:
             type_value = type(value)
             raise TypeError(
@@ -334,8 +337,8 @@ def package_event(
 
         # Build the key's block
         key_block += (
-            bytes(key, 'ascii') +
-            bytes(ktype, 'ascii') +
+            bytes(key) +
+            bytes(ktype) +
             pack('H', klen) +
             kdata
         )
