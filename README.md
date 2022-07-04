@@ -11,7 +11,42 @@ This system works easily, but it can have some timing issues. Specifically, the 
 
 To push more researchers, in the laboratory I am working, towards the use of open-source tools, I wanted to improve the usability and reliability of Psychopy in connection with EGI Netstation through the new [egi-pynetstation](https://github.com/nimh-sfim/egi-pynetstation). As reported above, the stimulus computer we have to work with runs on XP and cannot be modified. Thus, I adapted the code of the provided package to Python 2. This now allows the use of the precise NTP connection.
 
+## Dowload and Installation
+Download this repository and copy the folder `egi_pynetstation_PY2` into the `lib` folder of your Psychopy installation. This will allow you to import the package through the `import` statement in your script.
+
+Note that the name of this version of the package is `egi_pynetstation_PY2`. I did this on purpose to highlight the difference from the original package. Indeed, this will force you to specifically load the `PY2` version:
+
+```python
+from egi_pynetstation_PY2.NetStation import NetStation
+``` 
+
+Everything else is exactly as the original. See next section.
+
 ## How to use
 Use it exactly in the same way as the original egi-pynetstation package. Psychopy provides a [guide](https://www.psychopy.org/hardware/egiNetStation.html) for the use of this with the experiment builder code components.
+
+For instance:
+
+```python
+from egi_pynetstation_PY2.NetStation import NetStation # Note: we are asking for the Python 2 version
+
+#IP address of NetStation - CHANGE THIS TO MATCH THE IP ADDRESS OF YOUR NETSTATION
+IP_ns = '10.0.0.42'
+
+#IP address of amplifier (if using 300
+#series, this is the same as the IP address of
+#NetStation. If using newer series, the amplifier
+#has its own IP address)
+IP_amp = '10.0.0.42'
+
+#Port configured for ECI in NetStation - CHANGE THIS IF NEEDED
+port_ns = 55513
+
+#Start recording and send trigger to show this
+eci_client = NetStation(IP_ns, port_ns)
+eci_client.connect(ntp_ip = IP_amp)
+eci_client.begin_rec()
+eci_client.send_event(event_type = 'STRT', start = 0.0)
+```
 
 ## Timing Tests Coming Soon
